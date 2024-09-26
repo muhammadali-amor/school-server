@@ -28,6 +28,7 @@ public abstract class AbsNameEntity {
 
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
