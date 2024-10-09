@@ -14,6 +14,10 @@ import java.io.File;
 @Builder
 @Entity
 public class Comfortables extends AbsNameEntity {
+
+    @Column(nullable = false)
+    private String title;
+
     @Column(nullable = false)
     private String url;
 
