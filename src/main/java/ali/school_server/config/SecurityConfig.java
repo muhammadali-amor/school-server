@@ -78,8 +78,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers("/api/v1/hashteg/**", "/api/v1/necessary/**", "/api/v1/teach/**", "/api/v1/lesson/**", "/api/v1/module/**", "/api/v1/video/**").hasAuthority("SUPER_ADMIN")
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/about/**", "/api/comfortable/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .build();

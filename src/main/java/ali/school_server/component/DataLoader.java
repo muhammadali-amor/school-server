@@ -9,11 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Collections;
+import java.util.HashSet;
 
 @Configuration
 @EnableWebSecurity
@@ -32,7 +31,6 @@ public class DataLoader implements CommandLineRunner {
             for (RoleName value : RoleName.values()) {
                 roleRepository.save(new Role(value));
             }
-
             authRepository.save(
                     User.builder()
                             .name("Admin")
@@ -40,7 +38,7 @@ public class DataLoader implements CommandLineRunner {
                             .phoneNumber("987654321")
                             .email("restaurant@gmail.com")
                             .password(passwordEncoder.encode("root1234"))
-                            .roles(Collections.singleton(roleRepository.findById(1).orElseThrow(() -> new ResourceNotFoundException("getRole"))))
+                            .roles(new HashSet<>(roleRepository.findAll()))
                             .accountNonLocked(true)
                             .accountNonExpired(true)
                             .credentialsNonExpired(true)
