@@ -14,6 +14,10 @@ import java.io.File;
 @Builder
 @Entity
 public class News extends AbsEntity {
+
+    @Column(nullable = false)
+    private String title;
+
     private File photo;
 
     @Column(nullable = false)

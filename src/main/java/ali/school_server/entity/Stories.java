@@ -15,7 +15,9 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 public class Stories extends AbsNameEntity {
+
     private File photo;
+
     private File video;
 
     @Column(nullable = false)
