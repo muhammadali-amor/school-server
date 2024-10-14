@@ -16,9 +16,8 @@ public class StoriesService {
     private StoriesRepository storiesRepository;
 
     public List<StoriesDto> getStories() {
-        List<Stories> stories = storiesRepository.findAll();
         List<StoriesDto> storiesDtos = new ArrayList<>();
-        for (Stories story : stories) {
+        for (Stories story : storiesRepository.findAll()) {
             LocalDateTime now = LocalDateTime.now();
             if (story.getDate().isAfter(now.minusHours(24))) {
                 StoriesDto storiesDto = StoriesDto.builder()

@@ -18,7 +18,7 @@ public class StoriesController {
 
     private final StoriesService storiesService;
 
-    @GetMapping("/")
+    @GetMapping
     public HttpEntity<?> getStories() {
         List<StoriesDto> stories = storiesService.getStories();
         return ResponseEntity.ok(stories);

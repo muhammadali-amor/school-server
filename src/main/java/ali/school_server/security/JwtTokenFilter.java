@@ -27,8 +27,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         var token = this.recoverToken(request);
         if (token != null) {
-            var email = tokenService.validateToken(token);
-            var user = userRepository.findByEmail(email);
+            var phoneNumber = tokenService.validateToken(token);
+            var user = userRepository.findByPhoneNumber(phoneNumber);
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
