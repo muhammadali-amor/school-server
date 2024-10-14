@@ -4,6 +4,7 @@ import ali.school_server.entity.Stories;
 import ali.school_server.payload.ApiResponse;
 import ali.school_server.payload.StoriesDto;
 import ali.school_server.repository.StoriesRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -12,21 +13,27 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class StoriesService {
-    private StoriesRepository storiesRepository;
+    private final StoriesRepository storiesRepository;
 
     public List<StoriesDto> getStories() {
         List<StoriesDto> storiesDtos = new ArrayList<>();
         for (Stories story : storiesRepository.findAll()) {
-            LocalDateTime now = LocalDateTime.now();
-            if (story.getDate().isAfter(now.minusHours(24))) {
-                StoriesDto storiesDto = StoriesDto.builder()
-                        .id(story.getId())
-                        .name(story.getTitle())
-                        .video(story.getVideo())
-                        .image(story.getPhoto())
-                        .build();
-                storiesDtos.add(storiesDto);
+            Date date = new Date();
+            System.out.println(date.getDate());
+            System.out.println(date.getYear());
+            System.out.println(story.getDate().toString().substring(8, 10));
+            System.out.println(Integer.parseInt(story.getDate().toString().substring(0, 4)));
+            if ((date.getDate() == Integer.parseInt(story.getDate().toString().substring(8, 10)) || (Integer.parseInt(story.getDate().toString().substring(8, 10)) + 1) > Integer.parseInt(story.getDate().toString().substring(5, 7))) && (date.getYear() + 1900) == Integer.parseInt(story.getDate().toString().substring(0, 4))) {
+                storiesDtos.add(
+                        StoriesDto.builder()
+                                .id(story.getId())
+                                .name(story.getTitle())
+                                .video(story.getVideo())
+                                .image(story.getPhoto())
+                                .build()
+                );
             }
         }
         return storiesDtos;
