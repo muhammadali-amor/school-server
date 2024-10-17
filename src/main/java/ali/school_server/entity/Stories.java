@@ -17,9 +17,7 @@ import java.util.UUID;
 @Entity
 public class Stories extends AbsNameEntity {
 
-    private UUID photo;
-
-    private UUID video;
+    private UUID photoOrVideoId;
 
     @Column(nullable = false)
     private String title;

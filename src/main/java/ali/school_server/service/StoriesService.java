@@ -30,11 +30,24 @@ public class StoriesService {
                         StoriesDto.builder()
                                 .id(story.getId())
                                 .name(story.getTitle())
-                                .video(story.getVideo())
-                                .image(story.getPhoto())
+                                .photoOrVideoId(story.getPhotoOrVideoId())
                                 .build()
                 );
             }
+        }
+        return storiesDtos;
+    }
+
+    public List<StoriesDto> getStoriesAll() {
+        List<StoriesDto> storiesDtos = new ArrayList<>();
+        for (Stories story : storiesRepository.findAll()) {
+            storiesDtos.add(
+                    StoriesDto.builder()
+                            .id(story.getId())
+                            .name(story.getTitle())
+                            .photoOrVideoId(story.getPhotoOrVideoId())
+                            .build()
+            );
         }
         return storiesDtos;
     }
@@ -44,8 +57,7 @@ public class StoriesService {
             LocalDateTime now = LocalDateTime.now();
             Stories story = Stories.builder()
                     .date(now)
-                    .photo(storiesDto.getImage())
-                    .video(storiesDto.getVideo())
+                    .photoOrVideoId(storiesDto.getPhotoOrVideoId())
                     .title(storiesDto.getName())
                     .build();
             storiesRepository.save(story);
@@ -56,4 +68,14 @@ public class StoriesService {
         }
     }
 
+    public ApiResponse<?> deleteStories(Integer id) {
+        try {
+            storiesRepository.deleteById(id);
+            return new ApiResponse<>("Story deleted", true);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return new ApiResponse<>("error - " + e.getMessage(), false);
+        }
+    }
 }
+

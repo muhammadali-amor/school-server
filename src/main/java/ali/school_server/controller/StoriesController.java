@@ -24,9 +24,21 @@ public class StoriesController {
         return ResponseEntity.ok(stories);
     }
 
+    @GetMapping("/get-all")
+    public HttpEntity<?> getStoriesAll() {
+        List<StoriesDto> stories = storiesService.getStoriesAll();
+        return ResponseEntity.ok(stories);
+    }
+
     @PostMapping("/add-story")
     public HttpEntity<?> addStory(@RequestBody StoriesDto storiesDto) {
         ApiResponse<?> apiResponse = storiesService.addStories(storiesDto);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @DeleteMapping("/{id}")
+    public HttpEntity<?> deleteStories(@PathVariable Integer id) {
+        ApiResponse<?> apiResponse = storiesService.deleteStories(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }
