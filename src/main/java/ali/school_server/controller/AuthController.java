@@ -66,15 +66,9 @@ public class AuthController {
             User user = authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(404, "get user", "id", id));
             return ResponseEntity.ok(user);
         } catch (Exception e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
             return ResponseEntity.ok(new ApiResponse<>("GetOneUserda xatolik", false));
         }
-    }
-
-    @PostMapping("/photo/{id}")
-    public HttpEntity<?> addPhoto(@PathVariable UUID id, @RequestParam UUID photoId) {
-        ApiResponse<?> apiResponse = authService.addPhoto(id, photoId);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
 //    @PostMapping("/send-message/{id}")

@@ -3,6 +3,7 @@ package ali.school_server.payload;
 import lombok.*;
 
 import java.io.File;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -13,5 +14,5 @@ public class ComfortablesDto {
     private Integer id;
     private String title;
     private String url;
-    private File image;
+    private UUID image;
 }

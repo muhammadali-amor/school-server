@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import lombok.*;
 
 import java.io.File;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -22,5 +23,5 @@ public class Comfortables extends AbsNameEntity {
     private String url;
 
     @Column(nullable = false)
-    private File image;
+    private UUID image;
 }

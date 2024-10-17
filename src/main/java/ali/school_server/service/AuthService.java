@@ -1,11 +1,7 @@
 package ali.school_server.service;
 
-import ali.school_server.entity.Attachment;
-import ali.school_server.entity.AttachmentContent;
 import ali.school_server.entity.User;
 import ali.school_server.payload.*;
-import ali.school_server.repository.AttachmentContentRepository;
-import ali.school_server.repository.AttachmentRepository;
 import ali.school_server.repository.AuthRepository;
 import ali.school_server.repository.RoleRepository;
 import ali.school_server.security.JwtTokenProvider;
@@ -33,8 +29,6 @@ public class AuthService implements UserDetailsService {
     private final AuthRepository authRepository;
     private final RoleRepository roleRepository;
 //    private final MessageRepository messageRepository;
-    private final AttachmentRepository attachmentRepository;
-    private final AttachmentContentRepository attachmentContentRepository;
 
 
 //    private final JavaMailSender mailSender;
@@ -185,27 +179,6 @@ public class AuthService implements UserDetailsService {
                 }
             }
             return new ApiResponse<>("Taxrirlandi", true);
-        } catch (Exception e) {
-            return new ApiResponse<>("Xatolik", false);
-        }
-    }
-
-    public ApiResponse<?> addPhoto(UUID id, UUID photoId) {
-        try {
-            User partner = authRepository.findById(id).orElseThrow(() -> new ali.school_server.exception.ResourceNotFoundException(404, "getUser", "user id", id));
-            if (partner.getPhotoId() == null) {
-                partner.setPhotoId(photoId);
-                authRepository.save(partner);
-                return new ApiResponse<>("saqlandi", true);
-            } else {
-                AttachmentContent byAttachmentId = attachmentContentRepository.findByAttachmentId(partner.getPhotoId());
-                Attachment attachment = attachmentRepository.findById(partner.getPhotoId()).orElseThrow(() -> new ali.school_server.exception.ResourceNotFoundException(404, "getPhotoId", "photoId", photoId));
-                attachmentContentRepository.delete(byAttachmentId);
-                attachmentRepository.delete(attachment);
-                partner.setPhotoId(photoId);
-                authRepository.save(partner);
-                return new ApiResponse<>("saqlandi", true);
-            }
         } catch (Exception e) {
             return new ApiResponse<>("Xatolik", false);
         }

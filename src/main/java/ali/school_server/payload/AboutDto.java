@@ -3,6 +3,7 @@ package ali.school_server.payload;
 import lombok.*;
 
 import java.io.File;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -12,6 +13,6 @@ import java.io.File;
 public class AboutDto {
     private Integer id;
     private String title;
-    private File image;
+    private UUID image;
     private String description;
 }

@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -16,9 +17,9 @@ import java.time.LocalDateTime;
 @Entity
 public class Stories extends AbsNameEntity {
 
-    private File photo;
+    private UUID photo;
 
-    private File video;
+    private UUID video;
 
     @Column(nullable = false)
     private String title;

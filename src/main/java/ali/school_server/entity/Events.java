@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import lombok.*;
 
 import java.io.File;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -14,7 +15,7 @@ import java.io.File;
 @Builder
 @Entity
 public class Events extends AbsEntity {
-    private File photo;
+    private UUID photo;
 
     @Column(nullable = false)
     private String date;

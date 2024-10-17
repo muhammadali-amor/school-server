@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import lombok.*;
 
 import java.io.File;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -17,7 +18,7 @@ public class About extends AbsNameEntity {
     @Column(nullable = false)
     private String title;
 
-    private File photo;
+    private UUID photo;
 
     @Column(nullable = false)
     private String description;

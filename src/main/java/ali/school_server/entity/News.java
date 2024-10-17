@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import lombok.*;
 
 import java.io.File;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,7 +19,7 @@ public class News extends AbsEntity {
     @Column(nullable = false)
     private String title;
 
-    private File photo;
+    private UUID photo;
 
     @Column(nullable = false)
     private String description;
