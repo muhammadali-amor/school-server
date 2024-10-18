@@ -20,9 +20,6 @@ public class Stories extends AbsNameEntity {
     private UUID photoOrVideoId;
 
     @Column(nullable = false)
-    private String title;
-
-    @Column(nullable = false)
     private LocalDateTime date;
 
 

@@ -29,7 +29,7 @@ public class StoriesService {
                 storiesDtos.add(
                         StoriesDto.builder()
                                 .id(story.getId())
-                                .name(story.getTitle())
+                                .name(story.getName())
                                 .photoOrVideoId(story.getPhotoOrVideoId())
                                 .build()
                 );
@@ -44,7 +44,7 @@ public class StoriesService {
             storiesDtos.add(
                     StoriesDto.builder()
                             .id(story.getId())
-                            .name(story.getTitle())
+                            .name(story.getName())
                             .photoOrVideoId(story.getPhotoOrVideoId())
                             .build()
             );
@@ -58,8 +58,8 @@ public class StoriesService {
             Stories story = Stories.builder()
                     .date(now)
                     .photoOrVideoId(storiesDto.getPhotoOrVideoId())
-                    .title(storiesDto.getName())
                     .build();
+            story.setName(storiesDto.getName());
             storiesRepository.save(story);
             return new ApiResponse<>("Story saved", true);
         } catch (Exception e) {
