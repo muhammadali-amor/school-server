@@ -30,6 +30,7 @@ public class StoriesService {
                         StoriesDto.builder()
                                 .id(story.getId())
                                 .name(story.getName())
+                                .title(story.getTitle())
                                 .photoOrVideoId(story.getPhotoOrVideoId())
                                 .build()
                 );
@@ -45,6 +46,7 @@ public class StoriesService {
                     StoriesDto.builder()
                             .id(story.getId())
                             .name(story.getName())
+                            .title(story.getTitle())
                             .photoOrVideoId(story.getPhotoOrVideoId())
                             .build()
             );
@@ -57,6 +59,7 @@ public class StoriesService {
             LocalDateTime now = LocalDateTime.now();
             Stories story = Stories.builder()
                     .date(now)
+                    .title(storiesDto.getTitle())
                     .photoOrVideoId(storiesDto.getPhotoOrVideoId())
                     .build();
             story.setName(storiesDto.getName());

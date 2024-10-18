@@ -22,5 +22,7 @@ public class Stories extends AbsNameEntity {
     @Column(nullable = false)
     private LocalDateTime date;
 
+    private String title;
+
 
 }

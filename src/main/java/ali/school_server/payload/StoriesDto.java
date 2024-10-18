@@ -13,5 +13,6 @@ import java.util.UUID;
 public class StoriesDto {
     private Integer id;
     private String name;
+    private String title;
     private UUID photoOrVideoId;
 }
