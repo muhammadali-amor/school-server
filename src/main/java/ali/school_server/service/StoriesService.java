@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,13 +22,16 @@ public class StoriesService {
 
     public List<StoriesDto> getStories() {
         List<StoriesDto> storiesDtos = new ArrayList<>();
+        LocalDateTime now = LocalDateTime.now(ZoneId.systemDefault());
         for (Stories story : storiesRepository.findAll()) {
-            Date date = new Date();
-            System.out.println(date.getDate());
-            System.out.println(date.getYear());
-            System.out.println(story.getDate().toString().substring(8, 10));
-            System.out.println(Integer.parseInt(story.getDate().toString().substring(0, 4)));
-            if ((date.getDate() == Integer.parseInt(story.getDate().toString().substring(8, 10)) || (Integer.parseInt(story.getDate().toString().substring(8, 10)) + 1) > Integer.parseInt(story.getDate().toString().substring(5, 7))) && (date.getYear() + 1900) == Integer.parseInt(story.getDate().toString().substring(0, 4))) {
+            LocalDateTime storyDate = story.getDate();
+//            Date date = new Date();
+//            System.out.println(date.getDate());
+//            System.out.println(date.getYear());
+//            System.out.println(story.getDate().toString().substring(8, 10));
+//            System.out.println(Integer.parseInt(story.getDate().toString().substring(0, 4)));
+//            (date.getDate() == Integer.parseInt(story.getDate().toString().substring(8, 10)) || (Integer.parseInt(story.getDate().toString().substring(8, 10)) + 1) > Integer.parseInt(story.getDate().toString().substring(5, 7))) && (date.getYear() + 1900) == Integer.parseInt(story.getDate().toString().substring(0, 4))
+            if (ChronoUnit.HOURS.between(storyDate, now) <= 24) {
                 storiesDtos.add(
                         StoriesDto.builder()
                                 .id(story.getId())
