@@ -1,8 +1,10 @@
 package ali.school_server.component;
 
+import ali.school_server.entity.About;
 import ali.school_server.entity.Role;
 import ali.school_server.entity.User;
 import ali.school_server.entity.enums.RoleName;
+import ali.school_server.repository.AboutRepository;
 import ali.school_server.repository.AuthRepository;
 import ali.school_server.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashSet;
+import java.util.UUID;
 
 @Configuration
 @EnableWebSecurity
@@ -24,6 +27,7 @@ public class DataLoader implements CommandLineRunner {
     private final AuthRepository authRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AboutRepository aboutRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -46,5 +50,12 @@ public class DataLoader implements CommandLineRunner {
                             .build()
             );
         }
+        aboutRepository.save(
+                About.builder()
+                        .title("School name")
+                        .description("School description")
+                        .photoId(UUID.randomUUID())
+                        .build()
+        );
     }
 }

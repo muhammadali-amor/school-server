@@ -4,15 +4,17 @@ import ali.school_server.entity.About;
 import ali.school_server.payload.AboutDto;
 import ali.school_server.payload.ApiResponse;
 import ali.school_server.repository.AboutRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AboutService {
 
-    private AboutRepository aboutRepository;
+    private final AboutRepository aboutRepository;
 
     public List<AboutDto> getAbout() {
         List<AboutDto> aboutDtos = new ArrayList<>();
@@ -20,8 +22,9 @@ public class AboutService {
             AboutDto aboutDto = AboutDto.builder()
                     .id(about.getId())
                     .title(about.getTitle())
+                    .name(about.getName())
                     .description(about.getDescription())
-                    .image(about.getPhoto())
+                    .photoId(about.getPhotoId())
                     .build();
             aboutDtos.add(aboutDto);
         }
@@ -33,16 +36,18 @@ public class AboutService {
             if (aboutRepository.findAll().isEmpty()){
                 About about = About.builder()
                         .title(aboutDto.getTitle())
-                        .photo(aboutDto.getImage())
+                        .photoId(aboutDto.getPhotoId())
                         .description(aboutDto.getDescription())
                         .build();
+                about.setName(aboutDto.getName());
                 aboutRepository.save(about);
                 return new ApiResponse<>("About saved >-", true);
             } else {
                 for (About about : aboutRepository.findAll()) {
                     about.setTitle(aboutDto.getTitle());
+                    about.setName(aboutDto.getName());
                     about.setDescription(aboutDto.getDescription());
-                    about.setPhoto(aboutDto.getImage());
+                    about.setPhotoId(aboutDto.getPhotoId());
                     aboutRepository.save(about);
                 }
                 return new ApiResponse<>("About edited >-", true);

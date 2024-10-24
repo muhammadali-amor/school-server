@@ -13,6 +13,7 @@ import java.util.UUID;
 public class AboutDto {
     private Integer id;
     private String title;
-    private UUID image;
+    private String name;
+    private UUID photoId;
     private String description;
 }

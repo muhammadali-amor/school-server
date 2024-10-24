@@ -18,7 +18,7 @@ public class AboutController {
 
     private final AboutService aboutService;
 
-    @GetMapping("/")
+    @GetMapping
     public HttpEntity<?> getAbout() {
         List<AboutDto> serviceAbout = aboutService.getAbout();
         return ResponseEntity.ok(serviceAbout);
