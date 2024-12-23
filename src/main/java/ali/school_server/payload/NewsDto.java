@@ -11,9 +11,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class NewsDto {
-    private String title;
+    private int id;
+    private String name;
     private String description;
-    private UUID image;
+    private String photoId;
     private String date;
 
 }

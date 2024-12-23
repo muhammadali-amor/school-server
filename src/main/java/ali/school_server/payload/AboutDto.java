@@ -14,6 +14,8 @@ public class AboutDto {
     private Integer id;
     private String title;
     private String name;
-    private UUID photoId;
+    private String photoId;
     private String description;
+
+    private String incoming;
 }

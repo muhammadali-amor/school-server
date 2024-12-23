@@ -17,7 +17,7 @@ import java.util.UUID;
 @Entity
 public class Stories extends AbsNameEntity {
 
-    private UUID photoOrVideoId;
+    private String photoOrVideoId;
 
     @Column(nullable = false)
     private LocalDateTime date;

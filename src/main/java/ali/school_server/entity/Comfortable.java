@@ -14,14 +14,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Comfortables extends AbsNameEntity {
-
-    @Column(nullable = false)
-    private String title;
-
+public class Comfortable extends AbsNameEntity {
     @Column(nullable = false)
     private String url;
 
     @Column(nullable = false)
-    private UUID image;
+    private String photoId;
 }

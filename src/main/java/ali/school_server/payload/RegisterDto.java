@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 public class RegisterDto {
     private UUID id;
-    private UUID photoId;
+    private String photoId;
     private String name;
     private String surname;
     private String phoneNumber;

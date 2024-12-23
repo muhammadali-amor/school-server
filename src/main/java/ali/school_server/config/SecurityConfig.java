@@ -80,8 +80,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/about/**", "/api/comfortable/**", "/api/stories/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.GET,"/api/about/**", "/api/comfortable/**", "/api/stories/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/**", "/api/about/**", "/api/comfortable/**", "/api/stories/**", "/api/news/**", "/api/files/**", "/api/events/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/about/**", "/api/comfortable/**", "/api/stories/**", "/api/files/**").permitAll()
                         .anyRequest().authenticated())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .build();

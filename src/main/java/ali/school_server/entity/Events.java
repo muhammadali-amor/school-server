@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 @Entity
 public class Events extends AbsEntity {
-    private UUID photo;
+    private String photoId;
 
     @Column(nullable = false)
     private String date;

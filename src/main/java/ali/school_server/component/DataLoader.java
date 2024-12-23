@@ -50,12 +50,16 @@ public class DataLoader implements CommandLineRunner {
                             .build()
             );
         }
+
+        About about = About.builder()
+                .title("School name")
+                .description("School description")
+                .photoId("")
+                .build();
+        about.setName("School name");
+
         aboutRepository.save(
-                About.builder()
-                        .title("School name")
-                        .description("School description")
-                        .photoId(UUID.randomUUID())
-                        .build()
+                about
         );
     }
 }

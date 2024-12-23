@@ -18,7 +18,7 @@ public class About extends AbsNameEntity {
     @Column(nullable = false)
     private String title;
 
-    private UUID photoId;
+    private String photoId;
 
     @Column(nullable = false)
     private String description;

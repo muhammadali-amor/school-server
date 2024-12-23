@@ -24,7 +24,7 @@ public class AboutController {
         return ResponseEntity.ok(serviceAbout);
     }
 
-    @PostMapping("/add-about")
+    @PutMapping()
     public HttpEntity<?> addAbout(@RequestBody AboutDto aboutDto) {
         ApiResponse<?> addAbout = aboutService.addAbout(aboutDto);
         return ResponseEntity.status(addAbout.isSuccess() ? 200 : 400).body(addAbout);

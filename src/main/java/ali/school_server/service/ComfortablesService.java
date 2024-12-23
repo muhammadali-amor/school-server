@@ -1,56 +1,67 @@
 package ali.school_server.service;
 
-import ali.school_server.entity.Comfortables;
+import ali.school_server.entity.Comfortable;
 import ali.school_server.payload.ApiResponse;
-import ali.school_server.payload.ComfortablesDto;
-import ali.school_server.repository.ComfortablesRepository;
+import ali.school_server.payload.ComfortableDto;
+import ali.school_server.repository.ComfortableRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ComfortablesService {
 
-    private ComfortablesRepository comfortablesRepository;
+    private final ComfortableRepository comfortablesRepository;
 
-    public List<ComfortablesDto> getComfortables() {
-        List<ComfortablesDto> comfortablesDtos = new ArrayList<>();
-        comfortablesRepository.findAll().forEach(comfortables -> {
-            ComfortablesDto build = ComfortablesDto.builder().id(comfortables.getId()).url(comfortables.getUrl()).title(comfortables.getTitle()).image(comfortables.getImage()).build();
-            comfortablesDtos.add(build);
-        });
-        return comfortablesDtos;
+    public List<ComfortableDto> getComfortable() {
+        try {
+            List<ComfortableDto> comfortablesDtos = new ArrayList<>();
+            List<Comfortable> comfortables = comfortablesRepository.findAll();
+            for (Comfortable comfortable : comfortables) {
+                ComfortableDto comfortablesDto = ComfortableDto.builder()
+                        .id(comfortable.getId())
+                        .url(comfortable.getUrl())
+                        .name(comfortable.getName())
+                        .build();
+                comfortablesDtos.add(comfortablesDto);
+            }
+            return comfortablesDtos;
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
     }
 
-    public ApiResponse<?> addComfortable(ComfortablesDto comfortablesDto) {
+
+    public ApiResponse<?> addComfortable(ComfortableDto comfortablesDto) {
         try {
-            boolean existsed = comfortablesRepository.existsComfortablesByTitle(comfortablesDto.getTitle());
-            if (!existsed) {
-                Comfortables comfortable = Comfortables.builder()
-                        .title(comfortablesDto.getTitle())
-                        .image(comfortablesDto.getImage())
+            boolean existsComfortableByName = comfortablesRepository.existsComfortableByName(comfortablesDto.getName());
+            if (!existsComfortableByName) {
+                Comfortable comfortables = Comfortable.builder()
                         .url(comfortablesDto.getUrl())
+                        .photoId(comfortablesDto.getPhotoId())
                         .build();
-                comfortablesRepository.save(comfortable);
-                return ApiResponse.builder().message("Saved comfortable >-").success(true).build();
+                comfortables.setName(comfortablesDto.getName());
+                comfortablesRepository.save(comfortables);
+                return new ApiResponse<>("Comfortable saqlandi", true);
             } else {
-                return ApiResponse.builder().message("Existse comfortable >-").success(false).build();
+                return new ApiResponse<>("Comfortable mavjud", false);
             }
         } catch (Exception e) {
-            System.err.println("error : -> " + e.getMessage());
-            return new ApiResponse<>("error : -> " + e.getMessage(), false);
+            System.err.println(e.getMessage());
+            return new ApiResponse<>("Comfortable saqlashda xatolik", false);
         }
     }
 
-    public ApiResponse<?> deleteComfortable(Integer id) {
+    public ApiResponse<?> deleteComfortable(int id) {
         try {
             comfortablesRepository.deleteById(id);
-            return ApiResponse.builder().message("Deleted comfortable >-").success(true).build();
+            return new ApiResponse<>("Comfortable o'chirildi", true);
         } catch (Exception e) {
-            System.err.println("error : -> " + e.getMessage());
-            return new ApiResponse<>("error : -> " + e.getMessage(), false);
+            return new ApiResponse<>("Comfortable o'chirishda xatolik", false);
         }
     }
-
 }

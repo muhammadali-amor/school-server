@@ -1,7 +1,7 @@
 package ali.school_server.controller;
 
 import ali.school_server.payload.ApiResponse;
-import ali.school_server.payload.ComfortablesDto;
+import ali.school_server.payload.ComfortableDto;
 import ali.school_server.service.ComfortablesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -15,17 +15,18 @@ import java.util.List;
 @RequestMapping("/api/comfortable")
 @CrossOrigin
 public class ComfortablesController {
+
     private final ComfortablesService comfortablesService;
 
-    @GetMapping("/")
-    public HttpEntity<?> getComfortables() {
-        List<ComfortablesDto> comfortables = comfortablesService.getComfortables();
-        return ResponseEntity.ok(comfortables);
+    @GetMapping()
+    public HttpEntity<?> getComfortable() {
+        List<ComfortableDto> comfortable = comfortablesService.getComfortable();
+        return ResponseEntity.ok(comfortable);
     }
 
-    @PostMapping("/add-comfortable")
-    public HttpEntity<?> addComfortable(@RequestBody ComfortablesDto comfortables) {
-        ApiResponse<?> comfortable = comfortablesService.addComfortable(comfortables);
+    @PostMapping()
+    public HttpEntity<?> addComfortable(@RequestBody ComfortableDto comfortablesDto) {
+        ApiResponse<?> comfortable = comfortablesService.addComfortable(comfortablesDto);
         return ResponseEntity.status(comfortable.isSuccess() ? 200 : 409).body(comfortable);
     }
 

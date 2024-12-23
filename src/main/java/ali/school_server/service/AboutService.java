@@ -33,25 +33,18 @@ public class AboutService {
 
     public ApiResponse<?> addAbout(AboutDto aboutDto) {
         try {
-            if (aboutRepository.findAll().isEmpty()){
-                About about = About.builder()
-                        .title(aboutDto.getTitle())
-                        .photoId(aboutDto.getPhotoId())
-                        .description(aboutDto.getDescription())
-                        .build();
-                about.setName(aboutDto.getName());
-                aboutRepository.save(about);
-                return new ApiResponse<>("About saved >-", true);
-            } else {
-                for (About about : aboutRepository.findAll()) {
-                    about.setTitle(aboutDto.getTitle());
-                    about.setName(aboutDto.getName());
-                    about.setDescription(aboutDto.getDescription());
-                    about.setPhotoId(aboutDto.getPhotoId());
-                    aboutRepository.save(about);
+            About about = aboutRepository.findFirstByOrderById().orElseThrow(() -> new RuntimeException("About record not found!"));
+            switch (aboutDto.getIncoming()) {
+                case "title" -> about.setTitle(aboutDto.getTitle());
+                case "name" -> about.setName(aboutDto.getName());
+                case "description" -> about.setDescription(aboutDto.getDescription());
+                case "photoId" -> about.setPhotoId(aboutDto.getPhotoId());
+                default -> {
+                    return new ApiResponse<>("About edited x", false);
                 }
-                return new ApiResponse<>("About edited >-", true);
             }
+            aboutRepository.save(about);
+            return new ApiResponse<>("About edited >-", true);
         } catch (Exception e) {
             System.err.println("error : -> " + e.getMessage());
             return new ApiResponse<>("xato : " + e.getMessage(), false);

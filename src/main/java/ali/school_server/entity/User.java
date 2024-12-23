@@ -35,7 +35,7 @@ public class User extends AbsEntity implements UserDetails {
 
     private String description;
 
-    private UUID photoId;
+    private String photoId;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",

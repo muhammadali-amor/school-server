@@ -28,4 +28,10 @@ public class NewsController {
         ApiResponse<?> apiResponse = newsService.addNews(newsDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
+
+    @DeleteMapping("/{id}")
+    public HttpEntity<?> deleteNews(@PathVariable int id) {
+        ApiResponse<?> apiResponse = newsService.deleteNews(id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
 }

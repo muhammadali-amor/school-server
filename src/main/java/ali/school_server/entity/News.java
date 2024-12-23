@@ -1,6 +1,6 @@
 package ali.school_server.entity;
 
-import ali.school_server.entity.templates.AbsEntity;
+import ali.school_server.entity.templates.AbsNameEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.*;
@@ -14,12 +14,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-public class News extends AbsEntity {
+public class News extends AbsNameEntity {
 
-    @Column(nullable = false)
-    private String title;
-
-    private UUID photo;
+    private String photoId;
 
     @Column(nullable = false)
     private String description;
